@@ -16,7 +16,7 @@ export default function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
   return (
-    <section ref={ref} className="relative h-[100dvh] overflow-hidden">
+    <section ref={ref} className="relative h-[100dvh]" style={{ overflow: "clip" }}>
       {/* Parallax background */}
       <motion.div className="absolute inset-0" style={{ y, scale }}>
         <div
