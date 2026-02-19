@@ -39,6 +39,7 @@
 body {
   background: var(--bg-primary);
   color: var(--text-primary);
+  overflow-x: clip;
 }
 
 html {
