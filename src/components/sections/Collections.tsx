@@ -69,7 +69,7 @@ export default function Collections() {
           filtered.map((img, index) => (
             <div
               key={img.id}
-              className="group relative h-[55vh] max-h-[500px] w-[75vw] shrink-0 md:w-[35vw] lg:w-[28vw]"
+              className="group relative h-[55vh] max-h-[500px] w-[80vw] shrink-0 md:w-[50vw] lg:w-[40vw]"
             >
               <div className="h-[calc(100%-44px)] overflow-hidden rounded-sm">
                 <div
