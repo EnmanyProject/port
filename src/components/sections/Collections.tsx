@@ -26,7 +26,7 @@ export default function Collections() {
   }, [active]);
 
   return (
-    <section id="collections" className="overflow-hidden bg-[var(--bg-dark)] py-24 md:py-32">
+    <section id="collections" className="bg-[var(--bg-dark)] py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <div className="grid gap-12 md:grid-cols-[240px_1fr] md:gap-16">
           {/* Left: Collection list */}
@@ -93,8 +93,8 @@ export default function Collections() {
               >
                 <div
                   ref={scrollRef}
-                  className="flex h-[50vh] max-h-[500px] snap-x snap-mandatory items-start gap-4 overflow-x-auto overflow-y-hidden px-6 pb-4 md:h-[60vh] md:max-h-[600px] md:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [overscroll-behavior-x:contain]"
-                  style={{ touchAction: "pan-x pinch-zoom" }}
+                  className="flex h-[50vh] max-h-[500px] snap-x snap-mandatory items-start gap-4 overflow-x-auto overflow-y-hidden px-6 pb-4 md:h-[60vh] md:max-h-[600px] md:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  style={{ WebkitOverflowScrolling: "touch", overscrollBehaviorX: "contain" }}
                 >
                   {filtered.length === 0 ? (
                     <p className="py-20 text-sm text-white/30">
