@@ -48,8 +48,8 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 
 // Placeholder profile - replace with real data
 export const profile: ModelProfile = {
-  name: "도시은",
-  nameEn: "DOSI EUN",
+  name: "오트만",
+  nameEn: "OTHMAN",
   title: "Fashion Model",
   bio: "서울을 기반으로 활동하는 패션 모델. 에디토리얼, 커머셜, 런웨이 등 다양한 분야에서 활동하고 있습니다. 자연스러운 표현력과 독보적인 분위기로 각 브랜드의 이야기를 전달합니다.",
   stats: {
