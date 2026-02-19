@@ -1,0 +1,51 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #1A1A1A;
+  --primary-light: #333333;
+  --accent: #C9A96E;
+  --accent-light: #E8D5A3;
+  --text-primary: #1A1A1A;
+  --text-secondary: #666666;
+  --text-light: #999999;
+  --text-on-dark: #F5F5F0;
+  --border: #E5E5E5;
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F8F7F4;
+  --bg-dark: #0A0A0A;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --shadow-subtle: 0 2px 20px rgba(0,0,0,0.06);
+  --shadow-image: 0 8px 40px rgba(0,0,0,0.12);
+}
+
+@theme inline {
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-light: var(--text-light);
+  --color-text-on-dark: var(--text-on-dark);
+  --color-border: var(--border);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-dark: var(--bg-dark);
+  --font-display: var(--font-playfair);
+  --font-body: var(--font-pretendard);
+  --font-accent: var(--font-cormorant);
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
