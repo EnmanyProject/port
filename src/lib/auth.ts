@@ -5,7 +5,10 @@ const SESSION_VALUE = "authenticated";
 const MAX_AGE = 60 * 60 * 24; // 24 hours
 
 export async function verifyPassword(password: string): Promise<boolean> {
-  return password === process.env.ADMIN_PASSWORD;
+  const adminPw = process.env.ADMIN_PASSWORD;
+  console.log("[auth] ADMIN_PASSWORD set:", !!adminPw, "length:", adminPw?.length);
+  console.log("[auth] input length:", password?.length);
+  return password === adminPw;
 }
 
 export async function createSession(): Promise<void> {
