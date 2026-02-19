@@ -110,9 +110,18 @@ src/
 관리자 페이지에서 포트폴리오 이미지를 업로드/관리할 수 있습니다.
 
 - **URL**: `/admin/login`
-- **인증**: 환경변수 `ADMIN_PASSWORD`로 비밀번호 인증
+- **비밀번호**: Vercel 환경변수 `ADMIN_PASSWORD`
 - **세션**: 쿠키 기반 (24시간 유효)
-- **이미지 저장**: Vercel Blob Storage
+- **이미지 저장**: Vercel Blob Storage (`portfolio/` 경로)
+- **메타데이터**: `portfolio-meta.json` (Blob에 JSON 저장)
+
+### 이분할 관리 화면
+
+| 왼쪽 패널 | 오른쪽 패널 |
+|-----------|-----------|
+| 사진 업로드 폼 | 사이트 실시간 미리보기 (iframe) |
+| 등록된 사진 목록 | 섹션별 네비게이션 탭 |
+| 편집/삭제/Featured 토글 | 업로드 시 자동 새로고침 |
 
 ## Getting Started
 
@@ -165,6 +174,8 @@ npx vercel --prod
 ## TODO
 
 - [ ] 플레이스홀더 이미지를 실제 모델 사진으로 교체
+- [ ] Vercel Blob Storage 연결 (`BLOB_READ_WRITE_TOKEN` 설정)
 - [ ] 이메일 주소 업데이트 (현재: contact@portfolio.com)
 - [ ] `/public/compcard.pdf` Comp Card PDF 파일 추가
 - [ ] 원격 Git 저장소 연결
+- [ ] 커스텀 도메인 연결
