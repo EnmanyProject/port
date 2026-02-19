@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
 import { images, CATEGORY_LABELS, type Category } from "@/data/portfolio";
 
 const COLLECTIONS: { key: Category; label: string }[] = [
@@ -25,15 +26,25 @@ export default function Collections() {
     <section id="collections" className="bg-[var(--bg-dark)] py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         {/* Title */}
-        <p className="text-[11px] tracking-[0.3em] uppercase text-[var(--accent)]">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-[11px] tracking-[0.3em] uppercase text-[var(--accent)]"
+        >
           Collections
-        </p>
-        <h2 className="mt-3 font-display text-3xl font-light text-white md:text-4xl">
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-3 font-display text-3xl font-light text-white md:text-4xl"
+        >
           By Category
-        </h2>
+        </motion.h2>
 
         {/* Category tabs */}
-        <div className="mt-8 flex gap-3 overflow-x-auto pb-2">
+        <div className="mt-8 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {COLLECTIONS.map((col) => {
             const count = images.filter((img) => img.category === col.key).length;
             const isActive = active === col.key;
@@ -41,9 +52,9 @@ export default function Collections() {
               <button
                 key={col.key}
                 onClick={() => setActive(col.key)}
-                className={`shrink-0 rounded-full border px-4 py-2 text-[12px] tracking-[0.1em] uppercase transition-all ${
+                className={`shrink-0 rounded-full border px-5 py-2.5 text-[12px] tracking-[0.1em] uppercase transition-all duration-300 ${
                   isActive
-                    ? "border-[var(--accent)] bg-[var(--accent)]/10 text-[var(--accent)]"
+                    ? "border-[var(--accent)] text-[var(--accent)]"
                     : "border-white/10 text-white/40 hover:border-white/30 hover:text-white/70"
                 }`}
               >
@@ -55,52 +66,64 @@ export default function Collections() {
         </div>
       </div>
 
-      {/* Horizontal scroll gallery - full width */}
-      <div
-        ref={scrollRef}
-        className="mt-10 flex gap-4 overflow-x-auto px-6 pb-4 md:px-12"
-        style={{ WebkitOverflowScrolling: "touch" }}
-      >
-        {filtered.length === 0 ? (
-          <p className="py-20 text-sm text-white/30">
-            이 카테고리에 아직 사진이 없습니다.
-          </p>
-        ) : (
-          filtered.map((img, index) => (
-            <div
-              key={img.id}
-              className="group relative h-[55vh] max-h-[500px] w-[80vw] shrink-0 md:w-[50vw] lg:w-[40vw]"
-            >
-              <div className="h-[calc(100%-44px)] overflow-hidden rounded-sm">
-                <div
-                  className="h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-105"
-                  style={{
-                    background: `linear-gradient(${
-                      150 + index * 25
-                    }deg, #c4b99a 0%, #a89878 50%, #8c7e64 100%)`,
-                  }}
-                />
-              </div>
-              <div className="mt-2 flex items-start justify-between">
-                <div>
-                  <p className="text-[10px] tracking-[0.15em] uppercase text-white/30">
-                    {CATEGORY_LABELS[img.category]}
-                  </p>
-                  {img.metadata?.brand && (
-                    <p className="mt-0.5 text-sm text-white/70">
-                      {img.metadata.brand}
+      {/* Horizontal scroll gallery */}
+      <div className="relative mt-10">
+        <div
+          ref={scrollRef}
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:px-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          style={{ WebkitOverflowScrolling: "touch" }}
+        >
+          {filtered.length === 0 ? (
+            <p className="py-20 text-sm text-white/30">
+              이 카테고리에 아직 사진이 없습니다.
+            </p>
+          ) : (
+            filtered.map((img, index) => (
+              <motion.div
+                key={`${active}-${img.id}`}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{
+                  duration: 0.5,
+                  delay: index * 0.08,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
+                className="group relative h-[55vh] max-h-[500px] w-[80vw] shrink-0 snap-center md:w-[50vw] lg:w-[40vw]"
+              >
+                <div className="h-[calc(100%-44px)] overflow-hidden rounded-sm">
+                  <div
+                    className="h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+                    style={{
+                      background: `linear-gradient(${
+                        150 + index * 25
+                      }deg, #c4b99a 0%, #a89878 50%, #8c7e64 100%)`,
+                    }}
+                  />
+                </div>
+                <div className="mt-2 flex items-start justify-between">
+                  <div>
+                    <p className="text-[10px] tracking-[0.15em] uppercase text-white/30">
+                      {CATEGORY_LABELS[img.category]}
+                    </p>
+                    {img.metadata?.brand && (
+                      <p className="mt-0.5 text-sm text-white/70">
+                        {img.metadata.brand}
+                      </p>
+                    )}
+                  </div>
+                  {img.metadata?.photographer && (
+                    <p className="text-[11px] text-white/25">
+                      Ph. {img.metadata.photographer}
                     </p>
                   )}
                 </div>
-                {img.metadata?.photographer && (
-                  <p className="text-[11px] text-white/25">
-                    Ph. {img.metadata.photographer}
-                  </p>
-                )}
-              </div>
-            </div>
-          ))
-        )}
+              </motion.div>
+            ))
+          )}
+        </div>
+
+        {/* Right fade gradient */}
+        <div className="pointer-events-none absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-[var(--bg-dark)] to-transparent md:w-24" />
       </div>
     </section>
   );
