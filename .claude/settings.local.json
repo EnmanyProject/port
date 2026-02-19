@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "mcp__sequential-thinking__sequentialthinking",
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Bash(vercel:*)"
     ]
   }
 }
