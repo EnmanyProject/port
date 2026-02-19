@@ -93,7 +93,8 @@ export default function Collections() {
               >
                 <div
                   ref={scrollRef}
-                  className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  className="flex h-[50vh] max-h-[500px] snap-x snap-mandatory items-start gap-4 overflow-x-auto overflow-y-hidden px-6 pb-4 md:h-[60vh] md:max-h-[600px] md:px-0 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                  style={{ touchAction: "pan-x" }}
                 >
                   {filtered.length === 0 ? (
                     <p className="py-20 text-sm text-white/30">
@@ -110,13 +111,10 @@ export default function Collections() {
                           delay: index * 0.1,
                           ease: "easeOut",
                         }}
-                        className="group relative w-[75vw] flex-none snap-center md:w-[45vw] lg:w-[35vw]"
+                        className="group relative h-full w-[70vw] flex-none snap-center md:w-[40vw] lg:w-[30vw]"
                       >
-                        {/* Image */}
-                        <div
-                          className="overflow-hidden rounded-sm"
-                          style={{ aspectRatio: `${img.width}/${img.height}` }}
-                        >
+                        {/* Image - fixed height, contain within card */}
+                        <div className="h-[calc(100%-40px)] overflow-hidden rounded-sm">
                           <div
                             className="h-full w-full transition-transform duration-[1.5s] ease-out group-hover:scale-105"
                             style={{
@@ -128,7 +126,7 @@ export default function Collections() {
                         </div>
 
                         {/* Info below image */}
-                        <div className="mt-3 flex items-start justify-between">
+                        <div className="mt-2 flex items-start justify-between">
                           <div>
                             <p className="text-[10px] tracking-[0.15em] uppercase text-white/30">
                               {CATEGORY_LABELS[img.category]}
