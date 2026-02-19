@@ -61,7 +61,7 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.8 }}
             className="mt-3 text-base text-white/40 md:text-lg"
           >
-            Seoul-based fashion &amp; beauty model
+            French-born, Seoul-based fashion &amp; beauty model
           </motion.p>
 
           <motion.a
