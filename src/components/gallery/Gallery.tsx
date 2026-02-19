@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { images, CATEGORY_LABELS, type Category } from "@/data/portfolio";
 import Lightbox from "./Lightbox";
+import SwipeCards from "./SwipeCards";
 
 const ALL_CATEGORIES: ("all" | Category)[] = [
   "all",
@@ -42,13 +43,13 @@ export default function Gallery() {
           Selected Works
         </motion.h2>
 
-        {/* Filter tabs */}
-        <div className="mt-10 flex flex-wrap gap-2">
+        {/* Filter tabs - horizontal scroll on mobile */}
+        <div className="mt-10 flex gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {ALL_CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`rounded-full px-4 py-2 text-[12px] tracking-[0.1em] uppercase transition-all ${
+              className={`shrink-0 rounded-full px-4 py-2 text-[12px] tracking-[0.1em] uppercase transition-all ${
                 active === cat
                   ? "bg-[var(--primary)] text-white"
                   : "bg-white text-[var(--text-secondary)] hover:bg-[var(--border)]"
@@ -59,8 +60,19 @@ export default function Gallery() {
           ))}
         </div>
 
-        {/* Grid */}
-        <motion.div layout className="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3">
+        {/* Mobile: Apple-style swipe cards (visible below md) */}
+        <div className="mt-8 block md:hidden">
+          <SwipeCards
+            images={filtered}
+            onImageClick={(index) => setLightboxIndex(index)}
+          />
+        </div>
+
+        {/* Desktop: Masonry grid (visible md and above) */}
+        <motion.div
+          layout
+          className="mt-10 hidden gap-4 md:block md:columns-2 lg:columns-3"
+        >
           <AnimatePresence mode="popLayout">
             {filtered.map((img, index) => (
               <motion.div
