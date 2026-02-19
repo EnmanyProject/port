@@ -43,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${playfair.variable} ${cormorant.variable} ${pretendard.variable} font-body antialiased overflow-x-hidden`}
+        className={`${playfair.variable} ${cormorant.variable} ${pretendard.variable} font-body antialiased`}
       >
         {children}
       </body>

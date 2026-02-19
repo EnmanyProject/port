@@ -5,7 +5,8 @@
       "Bash(git init:*)",
       "Bash(vercel:*)",
       "Bash(netstat:*)",
-      "mcp__claude_ai_Vercel__deploy_to_vercel"
+      "mcp__claude_ai_Vercel__deploy_to_vercel",
+      "mcp__claude_ai_Vercel__get_project"
     ]
   }
 }
