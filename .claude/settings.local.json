@@ -4,7 +4,8 @@
       "mcp__sequential-thinking__sequentialthinking",
       "Bash(git init:*)",
       "Bash(vercel:*)",
-      "Bash(netstat:*)"
+      "Bash(netstat:*)",
+      "mcp__claude_ai_Vercel__deploy_to_vercel"
     ]
   }
 }

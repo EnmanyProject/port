@@ -73,7 +73,7 @@ function HighlightCard({
 
 export default function Highlights() {
   return (
-    <section id="highlights" className="bg-[var(--bg-primary)] py-24 md:py-32">
+    <section id="highlights" className="overflow-hidden bg-[var(--bg-primary)] py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
         <motion.p
           initial={{ opacity: 0 }}
