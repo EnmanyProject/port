@@ -1,0 +1,118 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { images } from "@/data/portfolio";
+import { CATEGORY_LABELS } from "@/data/portfolio";
+
+// Pick representative images showing range/spectrum
+const highlights = images.slice(0, 8);
+
+// Asymmetric grid layout: [colSpan, rowSpan] for magazine feel
+const GRID_PATTERN = [
+  "col-span-2 row-span-2", // Large hero
+  "col-span-1 row-span-1", // Small
+  "col-span-1 row-span-2", // Tall
+  "col-span-1 row-span-1", // Small
+  "col-span-1 row-span-1", // Small
+  "col-span-2 row-span-1", // Wide
+  "col-span-1 row-span-1", // Small
+  "col-span-1 row-span-1", // Small
+];
+
+function HighlightCard({
+  img,
+  index,
+  pattern,
+}: {
+  img: (typeof highlights)[0];
+  index: number;
+  pattern: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40, scale: 0.95 }}
+      animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.7, delay: index * 0.08, ease: "easeOut" }}
+      className={`${pattern} group relative cursor-pointer overflow-hidden`}
+    >
+      <div
+        className="h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+        style={{
+          background: `linear-gradient(${120 + index * 35}deg, #c4b99a 0%, #a89878 40%, #8c7e64 100%)`,
+          minHeight: pattern.includes("row-span-2") ? "400px" : "200px",
+        }}
+      />
+
+      {/* Hover overlay with info */}
+      <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-transparent to-transparent p-5 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+        <p className="text-[10px] tracking-[0.2em] uppercase text-[var(--accent)]">
+          {CATEGORY_LABELS[img.category]}
+        </p>
+        {img.metadata?.brand && (
+          <p className="mt-1 text-sm font-light text-white">
+            {img.metadata.brand}
+          </p>
+        )}
+        {img.metadata?.photographer && (
+          <p className="mt-0.5 text-[11px] text-white/50">
+            Ph. {img.metadata.photographer}
+          </p>
+        )}
+      </div>
+
+      {/* Subtle border on hover */}
+      <div className="absolute inset-0 border border-white/0 transition-all duration-500 group-hover:border-white/10" />
+    </motion.div>
+  );
+}
+
+export default function Highlights() {
+  return (
+    <section id="highlights" className="bg-[var(--bg-primary)] py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6 md:px-12">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="text-[11px] tracking-[0.3em] uppercase text-[var(--accent)]"
+        >
+          Highlights
+        </motion.p>
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-3 font-display text-3xl font-light tracking-tight md:text-4xl"
+        >
+          Range &amp; Spectrum
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="mt-3 text-sm text-[var(--text-light)]"
+        >
+          다양한 무드와 컨셉을 소화하는 폭넓은 스펙트럼
+        </motion.p>
+
+        {/* Asymmetric Magazine Grid */}
+        <div className="mt-12 grid auto-rows-[180px] grid-cols-2 gap-3 md:auto-rows-[220px] md:grid-cols-4 md:gap-4">
+          {highlights.map((img, i) => (
+            <HighlightCard
+              key={img.id}
+              img={img}
+              index={i}
+              pattern={GRID_PATTERN[i] || "col-span-1 row-span-1"}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
