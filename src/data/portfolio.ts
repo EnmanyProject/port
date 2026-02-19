@@ -1,22 +1,37 @@
 export interface ModelProfile {
   name: string;
   nameEn: string;
+  fullName: string;
   title: string;
   bio: string;
+  nationality: string;
+  dateOfBirth: string;
+  age: number;
+  languages: string[];
   stats: {
     height: string;
     weight: string;
-    bust: string;
+    chest: string;
     waist: string;
-    hip: string;
+    hips: string;
+    legs: string;
     shoe: string;
   };
+  appearance: {
+    eyeColor: string;
+    hairColor: string;
+    shirtSize: string;
+    pantSize: string;
+    tattoo: string;
+  };
+  specialSkills: string[];
   sns: {
     instagram?: string;
     youtube?: string;
     tiktok?: string;
   };
   email: string;
+  phone: string;
 }
 
 export interface PortfolioImage {
@@ -46,24 +61,38 @@ export const CATEGORY_LABELS: Record<Category, string> = {
   profile: "Profile",
 };
 
-// Placeholder profile - replace with real data
 export const profile: ModelProfile = {
   name: "오트만",
   nameEn: "OTHMAN",
+  fullName: "EL AKTAA Othman",
   title: "Fashion Model",
   bio: "프랑스 출신, 서울을 기반으로 활동하는 패션 모델. 에디토리얼, 커머셜, 런웨이 등 다양한 분야에서 활동하고 있습니다. 자연스러운 표현력과 독보적인 분위기로 각 브랜드의 이야기를 전달합니다.",
+  nationality: "French",
+  dateOfBirth: "1999.12.20",
+  age: 26,
+  languages: ["French", "Korean", "English"],
   stats: {
-    height: "172cm",
-    weight: "50kg",
-    bust: "82cm",
-    waist: "60cm",
-    hip: "88cm",
-    shoe: "245mm",
+    height: "183cm",
+    weight: "66kg",
+    chest: "97cm",
+    waist: "80.5cm",
+    hips: "91cm",
+    legs: "107cm",
+    shoe: "275mm",
   },
+  appearance: {
+    eyeColor: "Dark Brown",
+    hairColor: "Dark Brown / Black",
+    shirtSize: "M~L",
+    pantSize: "31",
+    tattoo: "None",
+  },
+  specialSkills: ["Dance"],
   sns: {
-    instagram: "https://instagram.com/",
+    instagram: "https://instagram.com/eyce____",
   },
   email: "contact@portfolio.com",
+  phone: "010-4996-4554",
 };
 
 // Placeholder images using gradient backgrounds

@@ -48,7 +48,7 @@ export default function Contact() {
                     rel="noopener noreferrer"
                     className="mt-1 block text-[15px] text-white/70 transition-colors hover:text-[var(--accent)]"
                   >
-                    @instagram
+                    @eyce____
                   </a>
                 </div>
               )}
