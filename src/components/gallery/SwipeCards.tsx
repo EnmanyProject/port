@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import type { PortfolioImage } from "@/data/portfolio";
 import { CATEGORY_LABELS } from "@/data/portfolio";
@@ -45,6 +45,12 @@ export default function SwipeCards({ images, onImageClick }: SwipeCardsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+
+  // Reset index when images change (category switch)
+  useEffect(() => {
+    setCurrentIndex(0);
+    setDirection(0);
+  }, [images]);
 
   const current = images[currentIndex];
   const prevImage = currentIndex > 0 ? images[currentIndex - 1] : null;
