@@ -123,133 +123,161 @@ src/
 | 등록된 사진 목록 | 섹션별 네비게이션 탭 |
 | 편집/삭제/Featured 토글 | 업로드 시 자동 새로고침 |
 
-## Setup Guide (for non-developers)
+---
 
-Follow these steps to deploy and manage the site yourself.
-Everything is **free**.
+# How to set up your website (English)
 
-### Step 1: Sign Up (2 services)
+Your portfolio website is ready! You just need to put it online.
+Everything below is **100% free**. No credit card needed. Takes about **10 minutes**.
 
-| Service | URL | Purpose |
-|---------|-----|---------|
-| **GitHub** | https://github.com | Code repository |
-| **Vercel** | https://vercel.com | Website hosting + image storage |
+## What you need before starting
 
-> Sign up for Vercel using your **GitHub account** — they will be linked automatically.
-> Choose the **Hobby (free)** plan.
+You should already have:
+- A **GitHub** account (https://github.com)
+- A **Vercel** account (https://vercel.com) — sign in with your GitHub account
 
-### Step 2: Connect Code + Deploy
+## Step 1: Accept the invitation
 
-1. Accept the collaborator invitation on this GitHub repository (or Fork it to your own account).
-2. Go to Vercel Dashboard → **"Add New Project"** → Select this GitHub repo.
-3. Click **"Deploy"** → It will automatically build & deploy.
-4. Once deployed, you'll get a URL like `https://your-project.vercel.app`.
+I sent you an invitation to access the code. Check your email from GitHub and click **"View invitation"** then **"Accept"**.
 
-### Step 3: Set Environment Variables
+After accepting, you can see the code at: `https://github.com/EnmanyProject/port`
 
-Vercel Dashboard → Select your project → **Settings** → **Environment Variables**
+## Step 2: Put your website online
 
-| Variable | Value | Description |
-|----------|-------|-------------|
-| `ADMIN_PASSWORD` | Choose a password | For admin login (letters + numbers recommended, avoid special characters) |
+1. Open https://vercel.com and log in
+2. Click the **"Add New..."** button (top right) then **"Project"**
+3. You will see a list of your GitHub projects. Find **"port"** and click **"Import"**
+4. Don't change anything. Just click the **"Deploy"** button
+5. Wait about 1 minute. When you see confetti, your site is live!
+6. You will get a link like `https://port-xxxxx.vercel.app` — **save this link**, this is your website
 
-> After setting, go to **Deployments** tab → Click **"..."** on the latest deployment → **"Redeploy"**
+## Step 3: Set your admin password
 
-### Step 4: Connect Image Storage
+You need a password to upload photos to your site.
 
-1. Vercel Dashboard → **Storage** tab
-2. Click **"Create"** → Select **"Blob"** → Enter a name and create
-3. Click **"Connect to Project"** → Select this project
-4. `BLOB_READ_WRITE_TOKEN` will be automatically added to your environment variables.
-5. **Redeploy** again.
+1. On Vercel, click your project name (port)
+2. Click **"Settings"** (top menu)
+3. Click **"Environment Variables"** (left menu)
+4. Fill in the form:
+   - **Key**: type `ADMIN_PASSWORD`
+   - **Value**: type a password you will remember (example: `myportfolio2024`)
+   - Click **"Save"**
+5. Now go back: click **"Deployments"** (top menu)
+6. On the top deployment, click the **"..."** button (three dots on the right)
+7. Click **"Redeploy"** then **"Redeploy"** again to confirm
+8. Wait about 1 minute for it to finish
 
-### Step 5: Upload Photos
+## Step 4: Set up photo storage
 
-1. Go to `https://your-site.vercel.app/admin/login`
-2. Log in with the password you set in Step 3
-3. On the left panel: select a category → upload photos
-4. On the right panel: see a live preview of your site
+This is where your photos will be saved.
 
-### Vercel Free Plan Limits
+1. On Vercel, click **"Storage"** (top menu)
+2. Click **"Create"** button
+3. Choose **"Blob"** and click **"Continue"**
+4. Type any name (example: `portfolio-photos`) and click **"Create"**
+5. Click **"Connect to Project"** and select your project (port)
+6. Click **"Connect"**
+7. Go to **"Deployments"** again, click **"..."** on the top one, click **"Redeploy"**
+8. Wait about 1 minute
 
-| Resource | Limit | Enough for portfolio? |
-|----------|-------|-----------------------|
-| Bandwidth | 100GB/month | More than enough |
-| Blob Storage | 500MB | ~100 high-quality photos |
-| Build Minutes | 6,000 min/month | More than enough |
-| Serverless Functions | 100GB-Hours/month | More than enough |
+## Step 5: Upload your photos!
 
-### (Optional) Custom Domain
+1. Open your website link and add `/admin/login` at the end
+   - Example: `https://port-xxxxx.vercel.app/admin/login`
+2. Type the password you chose in Step 3
+3. You're in! Now you can:
+   - **Left side**: Choose a category (Editorial, Commercial, etc.) and upload photos
+   - **Right side**: See how your website looks in real time
 
-Vercel Dashboard → **Settings** → **Domains** → Add your domain.
-The free `.vercel.app` URL will always remain available.
+## You're done!
+
+Share your website link with anyone. They will see your portfolio.
+
+**Good to know:**
+- Free plan gives you space for about **100 high-quality photos**
+- Your site can handle **100GB of traffic per month** (that's a lot!)
+- You can upload and manage photos anytime from the admin page
+- If you want a custom domain (like `othman.com`), go to **Settings** then **Domains**
 
 ---
 
-## Guide de configuration (pour non-développeurs)
+# Comment configurer votre site web (Francais)
 
-Suivez ces étapes pour déployer et gérer le site vous-même.
-Tout est **gratuit**.
+Votre site portfolio est pret ! Il suffit de le mettre en ligne.
+Tout est **100% gratuit**. Pas besoin de carte bancaire. Ca prend environ **10 minutes**.
 
-### Étape 1 : Inscription (2 services)
+## Ce dont vous avez besoin avant de commencer
 
-| Service | URL | Usage |
-|---------|-----|-------|
-| **GitHub** | https://github.com | Stockage du code |
-| **Vercel** | https://vercel.com | Hébergement du site + stockage d'images |
+Vous devez deja avoir :
+- Un compte **GitHub** (https://github.com)
+- Un compte **Vercel** (https://vercel.com) — connectez-vous avec votre compte GitHub
 
-> Inscrivez-vous sur Vercel avec votre **compte GitHub** — ils seront liés automatiquement.
-> Choisissez le plan **Hobby (gratuit)**.
+## Etape 1 : Accepter l'invitation
 
-### Étape 2 : Connecter le code + Déployer
+Je vous ai envoye une invitation pour acceder au code. Verifiez vos emails de GitHub et cliquez sur **"View invitation"** puis **"Accept"**.
 
-1. Acceptez l'invitation de collaborateur sur ce dépôt GitHub (ou faites un Fork sur votre compte).
-2. Tableau de bord Vercel → **"Add New Project"** → Sélectionnez ce dépôt GitHub.
-3. Cliquez sur **"Deploy"** → Le site se construit et se déploie automatiquement.
-4. Une fois déployé, vous recevrez une URL comme `https://votre-projet.vercel.app`.
+Apres avoir accepte, vous pouvez voir le code sur : `https://github.com/EnmanyProject/port`
 
-### Étape 3 : Configurer les variables d'environnement
+## Etape 2 : Mettre votre site en ligne
 
-Tableau de bord Vercel → Sélectionnez le projet → **Settings** → **Environment Variables**
+1. Ouvrez https://vercel.com et connectez-vous
+2. Cliquez sur le bouton **"Add New..."** (en haut a droite) puis **"Project"**
+3. Vous verrez la liste de vos projets GitHub. Trouvez **"port"** et cliquez sur **"Import"**
+4. Ne changez rien. Cliquez simplement sur le bouton **"Deploy"**
+5. Attendez environ 1 minute. Quand vous voyez des confettis, votre site est en ligne !
+6. Vous recevrez un lien comme `https://port-xxxxx.vercel.app` — **gardez ce lien**, c'est votre site web
 
-| Variable | Valeur | Description |
-|----------|--------|-------------|
-| `ADMIN_PASSWORD` | Choisissez un mot de passe | Pour la connexion admin (lettres + chiffres recommandés, évitez les caractères spéciaux) |
+## Etape 3 : Choisir votre mot de passe admin
 
-> Après configuration, allez dans l'onglet **Deployments** → Cliquez sur **"..."** du dernier déploiement → **"Redeploy"**
+Vous avez besoin d'un mot de passe pour ajouter des photos sur votre site.
 
-### Étape 4 : Connecter le stockage d'images
+1. Sur Vercel, cliquez sur le nom de votre projet (port)
+2. Cliquez sur **"Settings"** (menu du haut)
+3. Cliquez sur **"Environment Variables"** (menu de gauche)
+4. Remplissez le formulaire :
+   - **Key** : tapez `ADMIN_PASSWORD`
+   - **Value** : tapez un mot de passe dont vous vous souviendrez (exemple : `monportfolio2024`)
+   - Cliquez sur **"Save"**
+5. Maintenant revenez en arriere : cliquez sur **"Deployments"** (menu du haut)
+6. Sur le deploiement du haut, cliquez sur le bouton **"..."** (trois points a droite)
+7. Cliquez sur **"Redeploy"** puis **"Redeploy"** encore pour confirmer
+8. Attendez environ 1 minute
 
-1. Tableau de bord Vercel → Onglet **Storage**
-2. Cliquez sur **"Create"** → Sélectionnez **"Blob"** → Entrez un nom et créez
-3. Cliquez sur **"Connect to Project"** → Sélectionnez ce projet
-4. `BLOB_READ_WRITE_TOKEN` sera automatiquement ajouté aux variables d'environnement.
-5. Faites un **Redeploy** à nouveau.
+## Etape 4 : Configurer le stockage des photos
 
-### Étape 5 : Télécharger des photos
+C'est la que vos photos seront sauvegardees.
 
-1. Allez sur `https://votre-site.vercel.app/admin/login`
-2. Connectez-vous avec le mot de passe défini à l'étape 3
-3. Panneau gauche : sélectionnez une catégorie → téléchargez des photos
-4. Panneau droit : aperçu en direct de votre site
+1. Sur Vercel, cliquez sur **"Storage"** (menu du haut)
+2. Cliquez sur le bouton **"Create"**
+3. Choisissez **"Blob"** et cliquez sur **"Continue"**
+4. Tapez un nom (exemple : `portfolio-photos`) et cliquez sur **"Create"**
+5. Cliquez sur **"Connect to Project"** et selectionnez votre projet (port)
+6. Cliquez sur **"Connect"**
+7. Allez dans **"Deployments"** encore, cliquez sur **"..."** sur le premier, puis **"Redeploy"**
+8. Attendez environ 1 minute
 
-### Limites du plan gratuit Vercel
+## Etape 5 : Ajouter vos photos !
 
-| Ressource | Limite | Suffisant pour un portfolio ? |
-|-----------|--------|-------------------------------|
-| Bande passante | 100 Go/mois | Largement suffisant |
-| Stockage Blob | 500 Mo | ~100 photos haute qualité |
-| Minutes de build | 6 000 min/mois | Largement suffisant |
-| Fonctions serverless | 100 Go-Heures/mois | Largement suffisant |
+1. Ouvrez le lien de votre site et ajoutez `/admin/login` a la fin
+   - Exemple : `https://port-xxxxx.vercel.app/admin/login`
+2. Tapez le mot de passe que vous avez choisi a l'etape 3
+3. Vous y etes ! Maintenant vous pouvez :
+   - **Cote gauche** : Choisir une categorie (Editorial, Commercial, etc.) et ajouter des photos
+   - **Cote droit** : Voir a quoi ressemble votre site en temps reel
 
-### (Optionnel) Domaine personnalisé
+## C'est termine !
 
-Tableau de bord Vercel → **Settings** → **Domains** → Ajoutez votre domaine.
-L'URL gratuite `.vercel.app` restera toujours disponible.
+Partagez le lien de votre site avec qui vous voulez. Ils verront votre portfolio.
+
+**Bon a savoir :**
+- Le plan gratuit vous donne de la place pour environ **100 photos haute qualite**
+- Votre site peut supporter **100 Go de trafic par mois** (c'est beaucoup !)
+- Vous pouvez ajouter et gerer vos photos a tout moment depuis la page admin
+- Si vous voulez un domaine personnalise (comme `othman.com`), allez dans **Settings** puis **Domains**
 
 ---
 
-## Getting Started (developers)
+## For developers
 
 ```bash
 npm install
@@ -270,11 +298,3 @@ BLOB_READ_WRITE_TOKEN=vercel_blob_token
 ```bash
 npx vercel --prod
 ```
-
-## TODO
-
-- [ ] Replace placeholder images with real model photos
-- [ ] Connect Vercel Blob Storage (`BLOB_READ_WRITE_TOKEN`)
-- [ ] Update email address (currently: contact@portfolio.com)
-- [ ] Add Comp Card PDF at `/public/compcard.pdf`
-- [ ] Connect custom domain
