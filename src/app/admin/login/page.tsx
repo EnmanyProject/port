@@ -21,7 +21,8 @@ export default function AdminLogin() {
     });
 
     if (res.ok) {
-      router.push("/admin/manage");
+      // 메인 포트폴리오로 이동 — 롱프레스로 직접 사진 업로드 가능
+      router.push("/");
     } else {
       setError("비밀번호가 틀렸습니다");
     }
