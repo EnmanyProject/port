@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_ITEMS = [
@@ -13,6 +14,8 @@ const NAV_ITEMS = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -29,11 +32,31 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 md:h-20 md:px-12">
+        {/* 로고 길게 누르면 어드민으로 이동 (비밀 진입점) */}
         <a
           href="#"
-          className={`font-display text-lg tracking-[0.15em] transition-colors duration-500 md:text-xl ${
+          className={`font-display text-lg tracking-[0.15em] transition-colors duration-500 select-none md:text-xl ${
             scrolled ? "text-[var(--text-primary)]" : "text-white"
           }`}
+          onTouchStart={() => {
+            longPressTimer.current = setTimeout(() => {
+              router.push("/admin/login");
+            }, 1000);
+          }}
+          onTouchEnd={() => {
+            if (longPressTimer.current) clearTimeout(longPressTimer.current);
+          }}
+          onMouseDown={() => {
+            longPressTimer.current = setTimeout(() => {
+              router.push("/admin/login");
+            }, 1000);
+          }}
+          onMouseUp={() => {
+            if (longPressTimer.current) clearTimeout(longPressTimer.current);
+          }}
+          onMouseLeave={() => {
+            if (longPressTimer.current) clearTimeout(longPressTimer.current);
+          }}
         >
           PORTFOLIO
         </a>
