@@ -51,16 +51,19 @@ export default function Header() {
               {item.label}
             </a>
           ))}
+          <ShareButton scrolled={scrolled} />
         </nav>
 
-        {/* Mobile menu button */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className={`flex flex-col gap-[5px] p-2 md:hidden ${
-            scrolled ? "text-[var(--text-primary)]" : "text-white"
-          }`}
-          aria-label="Menu"
-        >
+        {/* Mobile: 공유 + 메뉴 버튼 */}
+        <div className="flex items-center gap-1 md:hidden">
+          <ShareButton scrolled={scrolled} />
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className={`flex flex-col gap-[5px] p-2 ${
+              scrolled ? "text-[var(--text-primary)]" : "text-white"
+            }`}
+            aria-label="Menu"
+          >
           <span
             className={`block h-[1.5px] w-5 transition-all duration-300 ${
               menuOpen ? "translate-y-[6.5px] rotate-45" : ""
@@ -76,7 +79,8 @@ export default function Header() {
               menuOpen ? "-translate-y-[6.5px] -rotate-45" : ""
             } ${scrolled ? "bg-[var(--text-primary)]" : "bg-white"}`}
           />
-        </button>
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -104,5 +108,55 @@ export default function Header() {
         )}
       </AnimatePresence>
     </header>
+  );
+}
+
+// 공유 버튼 — Web Share API 지원 시 네이티브 공유, 아니면 클립보드 복사
+function ShareButton({ scrolled }: { scrolled: boolean }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    const url = window.location.origin;
+    const shareData = {
+      title: "OTHMAN — Portfolio",
+      text: "Check out my portfolio",
+      url,
+    };
+
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(url);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <button
+      onClick={handleShare}
+      className={`relative p-2 transition-colors duration-500 hover:text-[var(--accent)] ${
+        scrolled ? "text-[var(--text-secondary)]" : "text-white/80"
+      }`}
+      aria-label="Share portfolio"
+    >
+      {copied ? (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      ) : (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+          <polyline points="16 6 12 2 8 6" />
+          <line x1="12" y1="2" x2="12" y2="15" />
+        </svg>
+      )}
+    </button>
   );
 }
