@@ -3,6 +3,8 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { profile } from "@/data/portfolio";
+import { useImages } from "@/components/ImageProvider";
+import EditableImage from "@/components/ui/EditableImage";
 
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
@@ -15,16 +17,27 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
 
+  // featured 이미지 또는 첫 번째 이미지를 Hero 배경으로 사용
+  const { images } = useImages();
+  const heroImage = images.find((img) => img.featured) || images[0];
+
   return (
     <section ref={ref} className="relative h-[100dvh]" style={{ overflow: "clip" }}>
-      {/* Parallax background */}
+      {/* Parallax background — 롱프레스로 사진 교체 가능 */}
       <motion.div className="absolute inset-0" style={{ y, scale }}>
-        <div
+        <EditableImage
+          imageUrl={heroImage?.url}
+          category="editorial"
           className="h-full w-full"
-          style={{
-            background:
-              "linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 40%, #0d0d0d 100%)",
-          }}
+          placeholder={
+            <div
+              className="h-full w-full"
+              style={{
+                background:
+                  "linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 40%, #0d0d0d 100%)",
+              }}
+            />
+          }
         />
       </motion.div>
 

@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server";
-import { verifyPassword, createSession, destroySession } from "@/lib/auth";
+import { verifyPassword, createSession, destroySession, isAuthenticated } from "@/lib/auth";
+
+// 인증 상태 확인
+export async function GET() {
+  if (await isAuthenticated()) {
+    return NextResponse.json({ authenticated: true });
+  }
+  return NextResponse.json({ authenticated: false }, { status: 401 });
+}
 
 export async function POST(request: Request) {
   const { password } = await request.json();

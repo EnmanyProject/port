@@ -2,7 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { images, CATEGORY_LABELS, type Category } from "@/data/portfolio";
+import { images as placeholderImages, CATEGORY_LABELS, type Category } from "@/data/portfolio";
+import { useImages } from "@/components/ImageProvider";
+import EditableImage from "@/components/ui/EditableImage";
 
 const COLLECTIONS: { key: Category; label: string }[] = [
   { key: "editorial", label: "Editorial" },
@@ -15,17 +17,44 @@ const COLLECTIONS: { key: Category; label: string }[] = [
 export default function Collections() {
   const [active, setActive] = useState<Category>("editorial");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { images: blobImages } = useImages();
 
-  const filtered = images.filter((img) => img.category === active);
+  // Blob 이미지를 카테고리별로 필터 — 없으면 플레이스홀더 사용
+  const blobFiltered = blobImages.filter((img) => img.category === active);
+  const placeholderFiltered = placeholderImages.filter((img) => img.category === active);
+
+  // Blob 이미지가 있으면 그것만 표시, 없으면 플레이스홀더
+  const hasBlob = blobFiltered.length > 0;
+  const displayItems = hasBlob
+    ? blobFiltered.map((img) => ({
+        id: img.id,
+        url: img.url,
+        category: img.category,
+        brand: img.metadata?.brand,
+        photographer: img.metadata?.photographer,
+      }))
+    : placeholderFiltered.map((img) => ({
+        id: img.id,
+        url: undefined as string | undefined,
+        category: img.category,
+        brand: img.metadata?.brand,
+        photographer: img.metadata?.photographer,
+      }));
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ left: 0, behavior: "smooth" });
   }, [active]);
 
+  // 각 카테고리의 실제 이미지 수 (Blob 기준)
+  const getCategoryCount = (cat: Category) => {
+    const blobCount = blobImages.filter((img) => img.category === cat).length;
+    if (blobCount > 0) return blobCount;
+    return placeholderImages.filter((img) => img.category === cat).length;
+  };
+
   return (
     <section id="collections" className="bg-[var(--bg-dark)] py-24 md:py-32">
       <div className="mx-auto max-w-7xl px-6 md:px-12">
-        {/* Title */}
         <motion.p
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -46,7 +75,7 @@ export default function Collections() {
         {/* Category tabs */}
         <div className="mt-8 flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {COLLECTIONS.map((col) => {
-            const count = images.filter((img) => img.category === col.key).length;
+            const count = getCategoryCount(col.key);
             const isActive = active === col.key;
             return (
               <button
@@ -73,14 +102,14 @@ export default function Collections() {
           className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 md:px-12 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
-          {filtered.length === 0 ? (
+          {displayItems.length === 0 ? (
             <p className="py-20 text-sm text-white/30">
               이 카테고리에 아직 사진이 없습니다.
             </p>
           ) : (
-            filtered.map((img, index) => (
+            displayItems.map((item, index) => (
               <motion.div
-                key={`${active}-${img.id}`}
+                key={`${active}-${item.id}`}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{
@@ -90,30 +119,33 @@ export default function Collections() {
                 }}
                 className="group relative h-[55vh] max-h-[500px] w-[80vw] shrink-0 snap-center md:w-[50vw] lg:w-[40vw]"
               >
-                <div className="h-[calc(100%-44px)] overflow-hidden rounded-sm">
-                  <div
-                    className="h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-105"
-                    style={{
-                      background: `linear-gradient(${
-                        150 + index * 25
-                      }deg, #c4b99a 0%, #a89878 50%, #8c7e64 100%)`,
-                    }}
-                  />
-                </div>
+                <EditableImage
+                  imageUrl={item.url}
+                  category={active}
+                  className="h-[calc(100%-44px)] overflow-hidden rounded-sm"
+                  placeholder={
+                    <div
+                      className="h-full w-full transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+                      style={{
+                        background: `linear-gradient(${
+                          150 + index * 25
+                        }deg, #c4b99a 0%, #a89878 50%, #8c7e64 100%)`,
+                      }}
+                    />
+                  }
+                />
                 <div className="mt-2 flex items-start justify-between">
                   <div>
                     <p className="text-[10px] tracking-[0.15em] uppercase text-white/30">
-                      {CATEGORY_LABELS[img.category]}
+                      {CATEGORY_LABELS[item.category]}
                     </p>
-                    {img.metadata?.brand && (
-                      <p className="mt-0.5 text-sm text-white/70">
-                        {img.metadata.brand}
-                      </p>
+                    {item.brand && (
+                      <p className="mt-0.5 text-sm text-white/70">{item.brand}</p>
                     )}
                   </div>
-                  {img.metadata?.photographer && (
+                  {item.photographer && (
                     <p className="text-[11px] text-white/25">
-                      Ph. {img.metadata.photographer}
+                      Ph. {item.photographer}
                     </p>
                   )}
                 </div>

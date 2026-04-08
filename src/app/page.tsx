@@ -5,10 +5,11 @@ import Collections from "@/components/sections/Collections";
 import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
+import { ImageProvider } from "@/components/ImageProvider";
 
 export default function Home() {
   return (
-    <>
+    <ImageProvider>
       <Header />
       <main>
         <Hero />
@@ -18,6 +19,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </ImageProvider>
   );
 }
