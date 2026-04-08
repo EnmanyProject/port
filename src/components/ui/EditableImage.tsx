@@ -11,6 +11,8 @@ interface EditableImageProps {
   placeholder: ReactNode;
   // 업로드 시 적용할 카테고리
   category: Category;
+  // 라이트박스용 이미지 인덱스 (전체 이미지 목록에서의 위치)
+  lightboxIndex?: number;
   // 스타일 클래스
   className?: string;
   // 자식 요소 (오버레이 등)
@@ -21,31 +23,43 @@ export default function EditableImage({
   imageUrl,
   placeholder,
   category,
+  lightboxIndex,
   className = "",
   children,
 }: EditableImageProps) {
-  const { isAdmin, uploadImage } = useImages();
+  const { isAdmin, uploadImage, openLightbox } = useImages();
   const [showOverlay, setShowOverlay] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const didLongPress = useRef(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // 롱프레스 시작 (3초)
+  // 프레스 시작 — 어드민이면 2초 후 업로드 오버레이
   const startPress = useCallback(() => {
+    didLongPress.current = false;
     if (!isAdmin) return;
     longPressTimer.current = setTimeout(() => {
+      didLongPress.current = true;
       setShowOverlay(true);
-    }, 3000);
+    }, 2000);
   }, [isAdmin]);
 
-  // 롱프레스 취소
+  // 프레스 종료
   const cancelPress = useCallback(() => {
     if (longPressTimer.current) {
       clearTimeout(longPressTimer.current);
       longPressTimer.current = null;
     }
   }, []);
+
+  // 탭 (짧은 클릭) → 이미지 있으면 라이트박스
+  const handleClick = useCallback(() => {
+    if (didLongPress.current) return;
+    if (imageUrl && lightboxIndex !== undefined) {
+      openLightbox(lightboxIndex);
+    }
+  }, [imageUrl, lightboxIndex, openLightbox]);
 
   // 파일 업로드 처리
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,10 +92,11 @@ export default function EditableImage({
       onMouseDown={startPress}
       onMouseUp={cancelPress}
       onMouseLeave={cancelPress}
+      onClick={handleClick}
       onContextMenu={(e) => {
-        // 롱프레스 중 컨텍스트 메뉴 방지
         if (isAdmin) e.preventDefault();
       }}
+      style={{ cursor: imageUrl ? "pointer" : undefined }}
     >
       {/* 실제 이미지 또는 플레이스홀더 */}
       {imageUrl ? (
@@ -113,7 +128,10 @@ export default function EditableImage({
         <>
           <div
             className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
-            onClick={() => !uploading && setShowOverlay(false)}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (!uploading) setShowOverlay(false);
+            }}
           />
           <div className="absolute inset-0 z-50 flex items-center justify-center">
             <div
@@ -165,8 +183,6 @@ export default function EditableImage({
           </div>
         </>
       )}
-
-      {/* 숨겨진 파일 인풋 */}
     </div>
   );
 }

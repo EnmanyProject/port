@@ -32,6 +32,7 @@ function HighlightCard({
   photographer,
   index,
   pattern,
+  lightboxIndex,
 }: {
   imageUrl?: string;
   category: Category;
@@ -39,6 +40,7 @@ function HighlightCard({
   photographer?: string;
   index: number;
   pattern: string;
+  lightboxIndex?: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
@@ -54,6 +56,7 @@ function HighlightCard({
       <EditableImage
         imageUrl={imageUrl}
         category={category}
+        lightboxIndex={lightboxIndex}
         className="h-full w-full"
         placeholder={
           <div
@@ -149,6 +152,7 @@ export default function Highlights() {
               photographer={slot.photographer}
               index={i}
               pattern={slot.pattern}
+              lightboxIndex={slot.imageUrl ? i : undefined}
             />
           ))}
         </div>

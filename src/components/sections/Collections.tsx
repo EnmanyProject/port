@@ -122,6 +122,7 @@ export default function Collections() {
                 <EditableImage
                   imageUrl={item.url}
                   category={active}
+                  lightboxIndex={item.url ? blobImages.findIndex((img) => img.id === item.id) : undefined}
                   className="h-[calc(100%-44px)] overflow-hidden rounded-sm"
                   placeholder={
                     <div
